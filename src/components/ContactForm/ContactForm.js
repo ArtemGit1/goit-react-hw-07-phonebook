@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/ContactsSlice/ContactsSlice';
-import { v4 as uuidv4 } from 'uuid';
 
 const ContactForm = () => {
-  
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.list);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isDuplicate = contacts.some((contact) => contact.name.toLowerCase() === name.toLowerCase());
+    const newContact = { name, number };
 
-    if (isDuplicate) {
-      alert('This contact already exists!');
-    } else {
-      dispatch(addContact({ id: uuidv4(), name, number }));
+    try {
+      await dispatch(addContact(newContact));
       setName('');
       setNumber('');
+    } catch (error) {
+      console.error('Error adding contact:', error);
     }
   };
 
