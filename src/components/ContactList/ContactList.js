@@ -4,14 +4,14 @@ import { fetchContacts, deleteContact } from '../../redux/ContactsSlice/Contacts
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.items); // Оновлено тут
-  const filter = useSelector((state) => state.contacts.filter);
+  const contactsState = useSelector((state) => state.contacts);
+  const filter = contactsState.filter;
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const filteredContacts = contacts.filter((contact) =>
+  const filteredContacts = contactsState.items.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
