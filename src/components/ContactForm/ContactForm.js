@@ -1,3 +1,4 @@
+// ContactForm.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/ContactsSlice/ContactsSlice';
@@ -12,18 +13,15 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     const lowerCaseName = name.toLowerCase();
     const lowerCaseNumber = number.toLowerCase();
-
 
     const isContactExists = contacts.some(
       (contact) => contact.name.toLowerCase() === lowerCaseName || contact.number.toLowerCase() === lowerCaseNumber
     );
 
     if (isContactExists) {
-
-      console.log('Contact already exists!');
+      alert('Contact already exists!');
       return;
     }
 

@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, deleteContact } from '../../redux/ContactsSlice/ContactsSlice';
+import { deleteContact } from '../../redux/ContactsSlice/ContactsSlice';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contactsState = useSelector((state) => state.contacts);
-  const filter = contactsState.filter;
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  const filteredContacts = contactsState.items.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const contacts = useSelector((state) => state.contacts.items);
 
   const handleDelete = async (id) => {
     try {
@@ -25,7 +16,7 @@ const ContactList = () => {
 
   return (
     <ul>
-      {filteredContacts.map((contact) => (
+      {contacts.map((contact) => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
           <button type="button" onClick={() => handleDelete(contact.id)}>
