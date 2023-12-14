@@ -8,18 +8,19 @@ const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const newContact = { name, number };
 
-    try {
-      await dispatch(addContact(newContact));
-      setName('');
-      setNumber('');
-    } catch (error) {
-      console.error('Error adding contact:', error);
-    }
+    dispatch(addContact(newContact))
+      .then(() => {
+        setName('');
+        setNumber('');
+      })
+      .catch((error) => {
+        console.error('Error adding contact:', error);
+      });
   };
 
   return (
@@ -28,12 +29,12 @@ const ContactForm = () => {
         Name:
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       </label>
-
+      <br />
       <label>
         Number:
         <input type="text" value={number} onChange={(e) => setNumber(e.target.value)} />
       </label>
-
+      <br />
       <button type="submit">Add Contact</button>
     </form>
   );

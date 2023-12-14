@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'; // Додайте цей імпорт
+import { combineReducers } from 'redux';
 
 import { configureStore } from '@reduxjs/toolkit';
 import contactsReducer from '../ContactsSlice/ContactsSlice';
